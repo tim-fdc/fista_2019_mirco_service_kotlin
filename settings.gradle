@@ -1,0 +1,6 @@
+rootProject.name="fista-services"
+include 'proto'
+include 'user-service'
+include 'todo-service'
+include 'todo-service-es'
+include 'code-snippets'

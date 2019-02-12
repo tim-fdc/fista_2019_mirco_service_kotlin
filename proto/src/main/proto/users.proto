@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.freiheit.fista.user.grpc";
+option java_outer_classname = "UserApiProto";
+
+package user;
+
+// Why GRPC?
+// - less payload (binary protocol)
+// - faster
+// - streaming (unidirectional)
+// - Easier to keep API compatible
+// - no nulls
+// - Uses HTTP as transport
+// - based on proto buf and a vast amount of generators exist
+
+// We call this API instead of service in order to be able to differentiate between API and service logic.
+service UserApi {
+    // Returns a user given her/his id can be found.
+    rpc GetUser (GetUserReq) returns (GetUserRsp) {
+    }
+
+    // Returns all users. No criteria is needed, which may quickly end up in an expensive request.
+    // In GRPC there is always a request object to simplify preventing breaking changes.
+    rpc GetUsers (GetUsersReq) returns (GetUsersRsp) {
+    }
+}
+
+message GetUserReq {
+    string userId = 1;
+}
+
+message GetUserRsp {
+    User user = 1;
+}
+
+message GetUsersReq {
+}
+
+message GetUsersRsp {
+    repeated User users = 1;
+}
+
+message User {
+    string id = 1;
+    string nickname = 2;
+}

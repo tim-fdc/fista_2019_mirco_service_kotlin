@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.freiheit.fista.user.grpc";
+option java_outer_classname = "ServiceStateProto";
+
+package tracking;
+
+// We call this API instead of service in order to be able to differentiate between API and service logic.
+service ServiceStateApi {
+    rpc Health (HealthReq) returns (HealthRsp) {
+    }
+    rpc Ready (ReadyReq) returns (ReadyRsp) {
+    }
+}
+
+// you always need to define a request parameter to not break the API later.
+message HealthReq {
+}
+
+message HealthRsp {
+    HealthState state = 1;
+}
+
+// you always need to define a request parameter to not break the API later.
+message ReadyReq {
+}
+
+message ReadyRsp {
+    ReadyState state = 1;
+}
+
+enum HealthState {
+    HEALTHY = 0;
+    UN_HEALTHY= 1;
+}
+
+enum ReadyState {
+    READY = 0;
+    STARTING = 1;
+    FAILURE = 2;
+}
